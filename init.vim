@@ -31,6 +31,8 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add(expand('jeffkreeftmeijer/vim-numbertoggle'))
 	call dein#add(expand('rust-lang/rust.vim'))
 	call dein#add(expand('tbastos/vim-lua'))
+	call dein#add(expand('vim-syntastic/syntastic'))
+	call dein#add(expand('mattn/emmet-vim'))
 
 	call dein#end()
 	call dein#save_state()
@@ -48,6 +50,22 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 
 " Awesome line numbers!
 set number
+
+" Need 'em syntax checkers
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_go_checkers = ["go"]
+
+" Emmet
+let g:user_emmet_expandabbr_key = '<c-e>'
+
+let g:use_emmet_complete_tag = 1
 
 " Lightline
 let g:lightline = { 'colorscheme' : 'flatcolor' }
@@ -86,3 +104,5 @@ tnoremap <Esc> <C-\><C-n>
 source ~/.config/nvim/headersource.vim
 noremap <C-t> :w <bar> A <CR>
 
+" Allow saving when I foreget to start as sudo
+cmap w!! w !sudo tee > /dev/null %
