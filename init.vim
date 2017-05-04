@@ -57,14 +57,11 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 noremap <c-b> :CtrlPBuffer<CR>
 let g:ctrlp_rexexp = 1
-let g:ctrlp_working_path_mode = 'cr'
 let g:ctrlp_match_window = 'top,order:btt,min:1,max:10,results:10'
 let g:ctrlp_switch_buffer = 'ETVH'
 let g:ctrlp_tabpage_position = 'bf'
 let g:ctrlp_line_prefix = '  '
 let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
-
-
 
 " Tabs
 set tabstop=4
