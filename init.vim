@@ -31,7 +31,7 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add(expand('jeffkreeftmeijer/vim-numbertoggle'))
 	call dein#add(expand('rust-lang/rust.vim'))
 	call dein#add(expand('tbastos/vim-lua'))
-	call dein#add(expand('vim-syntastic/syntastic'))
+"	call dein#add(expand('vim-syntastic/syntastic'))
 	call dein#add(expand('mattn/emmet-vim'))
 
 	call dein#end()
@@ -46,21 +46,40 @@ filetype plugin indent on
 colorscheme flatcolor
 
 " Autoload!
-autocmd bufwritepost .vimrc source $MYVIMRC
+augroup vimrc
+	autocmd!
+	autocmd bufwritepost .vimrc source $MYVIMRC
+
+	" Custom tweaks
+	autocmd ColorScheme * highlight MatchParen cterm=none ctermbg=magenta ctermfg=black
+augroup END
 
 " Awesome line numbers!
-set number
+" set number
 
 " Need 'em syntax checkers
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_go_checkers = ["go"]
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ["go"]
+" Build command
+command! Build vert new | te ./build.sh build
+command! Debug vert new | te ./build.sh debug
+command! Run   vert new | te ./build.sh
+command! B     vert new | te ./build.sh build
+command! D     vert new | te ./build.sh debug
+command! R     vert new | te ./build.sh
+" Allow saving when I foreget to start as sudo
+command! WRITE w !sudo tee > /dev/null %
+" I allways accidentally do this.
+command! W w
+command! Q q!
 
 " Emmet
 let g:user_emmet_expandabbr_key = '<c-e>'
@@ -78,6 +97,7 @@ let g:ctrlp_rexexp = 1
 let g:ctrlp_match_window = 'top,order:btt,min:1,max:10,results:10'
 let g:ctrlp_switch_buffer = 'ETVH'
 let g:ctrlp_tabpage_position = 'bf'
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_line_prefix = '  '
 let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
 
@@ -101,5 +121,4 @@ tnoremap <Esc> <C-\><C-n>
 source ~/.config/nvim/headersource.vim
 noremap <C-t> :w <bar> A <CR>
 
-" Allow saving when I foreget to start as sudo
-cmap w!! w !sudo tee > /dev/null %
+
