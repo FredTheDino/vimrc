@@ -30,10 +30,9 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add(expand('tikhomirov/vim-glsl'))
 	call dein#add(expand('jeffkreeftmeijer/vim-numbertoggle'))
 	call dein#add(expand('rust-lang/rust.vim'))
-	call dein#add(expand('tbastos/vim-lua'))
+	call dein#add(expand('tpope/vim-fugitive'))
 "	call dein#add(expand('vim-syntastic/syntastic'))
 	call dein#add(expand('mattn/emmet-vim'))
-
 	call dein#end()
 	call dein#save_state()
 endif
@@ -53,6 +52,9 @@ augroup vimrc
 	" Custom tweaks
 	autocmd ColorScheme * highlight MatchParen cterm=none ctermbg=magenta ctermfg=black
 augroup END
+
+" I want GLSL highlighting, okay.
+autocmd BufNewFile,BufRead *.glsl   set syntax=glsl
 
 " Awesome line numbers!
 " set number
