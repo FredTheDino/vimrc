@@ -10,8 +10,6 @@ if &compatible
 	set nocompatible
 endif
 
-let g:flatcolor_termcolors = 16
-
 " Include the plugin manager
 set runtimepath+=/home/ed/.config/nvim/repos/github.com/Shougo/dein.vim
 " Required:
@@ -23,7 +21,9 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add('/home/ed/.config/nvim/repos/github.com/Shougo/dein.vim')
 	" Ctrl-P
 	call dein#add(expand('ctrlpvim/ctrlp.vim'))
-	call dein#add(expand('itchyny/lightline.vim'))
+	" call dein#add(expand('itchyny/lightline.vim'))
+	call dein#add(expand('vim-airline/vim-airline'))
+	call dein#add(expand('morhetz/gruvbox'))
 	call dein#add(expand('MaxSt/FlatColor'))
 	call dein#add(expand('jiangmiao/auto-pairs'))
 	call dein#add(expand('octol/vim-cpp-enhanced-highlight'))
@@ -42,7 +42,10 @@ if dein#check_install()
 endif
 
 filetype plugin indent on
-colorscheme flatcolor
+" Gruvbox
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark = "hard"
 
 " Autoload!
 augroup vimrc
@@ -70,6 +73,12 @@ autocmd BufNewFile,BufRead *.glsl   set syntax=glsl
 " let g:syntastic_check_on_wq = 0
 " let g:syntastic_go_checkers = ["go"]
 
+" Enhanced C++ highlighting.
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
 " Build command
 command! Build vert new | te ./build.sh build
 command! Debug vert new | te ./build.sh debug
@@ -88,15 +97,16 @@ let g:user_emmet_expandabbr_key = '<c-e>'
 
 let g:use_emmet_complete_tag = 1
 
+
 " Lightline
-let g:lightline = { 'colorscheme' : 'flatcolor' }
+" let g:lightline = { 'colorscheme' : 'flatcolor' }
 
 " Ctrl P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 noremap <c-b> :CtrlPBuffer<CR>
 let g:ctrlp_rexexp = 1
-let g:ctrlp_match_window = 'top,order:btt,min:1,max:10,results:10'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 let g:ctrlp_switch_buffer = 'ETVH'
 let g:ctrlp_tabpage_position = 'bf'
 let g:ctrlp_working_path_mode = 'a'
@@ -116,11 +126,20 @@ noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
+" Rename variables short version.
+" For local replace
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+
+" For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
 " Escape to exit terminal
 tnoremap <Esc> <C-\><C-n>
 
 " Jumping between header and source
 source ~/.config/nvim/headersource.vim
 noremap <C-t> :w <bar> A <CR>
+
+nnoremap <C-w>n :vert new<CR>
 
 
