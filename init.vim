@@ -2,9 +2,6 @@
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-if has('patch-7.4.1778')
-  set guicolors
-endif
 
 if &compatible
 	set nocompatible
@@ -28,9 +25,10 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add(expand('jiangmiao/auto-pairs'))
 	call dein#add(expand('octol/vim-cpp-enhanced-highlight'))
 	call dein#add(expand('tikhomirov/vim-glsl'))
-	call dein#add(expand('jeffkreeftmeijer/vim-numbertoggle'))
 	call dein#add(expand('rust-lang/rust.vim'))
 	call dein#add(expand('tpope/vim-fugitive'))
+	call dein#add(expand('a-watson/vim-gdscript'))
+	call dein#add(expand('ludovicchabant/vim-gutentags'))
 "	call dein#add(expand('vim-syntastic/syntastic'))
 	call dein#add(expand('mattn/emmet-vim'))
 	call dein#end()
@@ -43,9 +41,10 @@ endif
 
 filetype plugin indent on
 " Gruvbox
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark = "hard"
+" colorscheme gruvbox
+" set background=dark
+" let g:gruvbox_contrast_dark = "hard"
+colorscheme default
 
 " Autoload!
 augroup vimrc
@@ -80,6 +79,10 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
 " Build command
+set makeprg=./build.sh
+map <F9> :make b<CR>
+map <F6> :make d<CR>
+map <F5> :make <CR>
 command! Build vert new | te ./build.sh build
 command! Debug vert new | te ./build.sh debug
 command! Run   vert new | te ./build.sh
@@ -105,6 +108,7 @@ let g:use_emmet_complete_tag = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 noremap <c-b> :CtrlPBuffer<CR>
+noremap <c-n> :CtrlPTag<CR>
 let g:ctrlp_rexexp = 1
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 let g:ctrlp_switch_buffer = 'ETVH'
@@ -141,5 +145,3 @@ source ~/.config/nvim/headersource.vim
 noremap <C-t> :w <bar> A <CR>
 
 nnoremap <C-w>n :vert new<CR>
-
-
