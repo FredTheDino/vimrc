@@ -29,6 +29,7 @@ if dein#load_state('/home/ed/.config/nvim/')
 	call dein#add(expand('tpope/vim-fugitive'))
 	call dein#add(expand('a-watson/vim-gdscript'))
 	call dein#add(expand('ludovicchabant/vim-gutentags'))
+	call dein#add(expand('pangloss/vim-javascript'))
 "	call dein#add(expand('vim-syntastic/syntastic'))
 	call dein#add(expand('mattn/emmet-vim'))
 	call dein#end()
@@ -79,10 +80,10 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
 " Build command
-set makeprg=./build.sh
-map <F9> :make b<CR>
-map <F6> :make d<CR>
-map <F5> :make <CR>
+"set makeprg=./build.sh
+"map <F9> :make b<CR>
+"map <F6> :make d<CR>
+"map <F5> :make <CR>
 command! Build vert new | te ./build.sh build
 command! Debug vert new | te ./build.sh debug
 command! Run   vert new | te ./build.sh
